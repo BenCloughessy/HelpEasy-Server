@@ -31,5 +31,15 @@ formRouter.route('/')
     res.end('DELETE operation not supported');
 });
 
+formRouter.route('/:formId')
+.delete((req, res) => {
+    Form.findByIdAndDelete(req.params.formId)
+    .then(response => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(response);
+    })
+})
+
 
 module.exports = formRouter;
