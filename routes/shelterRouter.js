@@ -1,5 +1,6 @@
 const express = require('express');
 const Shelter = require('../models/shelter');
+const addressToCoord = require('../addressToCoord')
 
 const shelterRouter = express.Router();
 

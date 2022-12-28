@@ -5,7 +5,9 @@ const shelterSchema = new Schema({
     name: String,
     url: String,
     phone: String,
-    address: String
+    address: String,
+    city: String,
+    state: String
 })
 
 const Shelter = mongoose.model('Shelter', shelterSchema);
