@@ -8,10 +8,13 @@ const shelterSchema = new Schema({
     address: String,
     city: String,
     state: String,
-    longitude: Number,
-    latitude: Number
+    location: {
+        type: { type: String },
+        coordinates: []
+    }
 })
 
+shelterSchema.index({ location: "2dsphere" })
 const Shelter = mongoose.model('Shelter', shelterSchema);
 
 module.exports = Shelter;

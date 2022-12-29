@@ -1,6 +1,5 @@
 const express = require('express');
 const Shelter = require('../models/shelter');
-const addressToCoord = require('../addressToCoord')
 
 const shelterRouter = express.Router();
 
@@ -8,6 +7,7 @@ shelterRouter.route('/')
 .get((req, res, next) => {
     Shelter.find()
     .then(shelters => {
+        console.log(shelters)
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(shelters);
@@ -32,6 +32,29 @@ shelterRouter.route('/')
     res.statusCode = 403;
     res.end('DELETE operation not supported');
 });
+
+shelterRouter.route('/:longitude/:latitude')
+.get((req, res, next) => {
+    console.log([req.params.longitude, req.params.latitude])
+    Shelter.find(
+        {
+            location:
+                { $near:
+                {
+                    $geometry: { type: 'Point', coordinates: [req.params.longitude, req.params.latitude] },
+                    $maxDistance: 20000
+                }
+            }
+        }
+    )
+    .then(shelters => {
+        console.log(shelters)
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(shelters);
+    })
+    .catch(err => next(err));
+})
 
 
 module.exports = shelterRouter;
