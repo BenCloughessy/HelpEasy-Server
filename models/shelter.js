@@ -7,7 +7,9 @@ const shelterSchema = new Schema({
     phone: String,
     address: String,
     city: String,
-    state: String
+    state: String,
+    longitude: Number,
+    latitude: Number
 })
 
 const Shelter = mongoose.model('Shelter', shelterSchema);
