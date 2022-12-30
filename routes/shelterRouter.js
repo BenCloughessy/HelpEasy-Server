@@ -49,6 +49,10 @@ shelterRouter.route('/:longitude/:latitude')
     )
     .then(shelters => {
         console.log(shelters)
+        for (let i = 0; i < shelters.length; i++) {
+            shelters[i].id = shelters[i]._id
+        }
+        console.log(shelters)
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(shelters);
